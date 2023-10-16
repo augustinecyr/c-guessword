@@ -18,12 +18,12 @@ int main()
     {
         scanf("%d", &player1_guess); // store input to player1_guess, must include '&'
 
-        if (player1_guess < 1 || player1_guess > 1000) // using || means AND for conditions.
+        if () // using || means AND for conditions.
         {
             printf("Sorry, the word must contain only English letters.\n");
             printf("Player 1, enter a word of no more than 7 letters:\n");
         }
-    } while (player1_guess < 1 || player1_guess > 1000);
+    } while ();
 
     int count = 0;              // set this to 0 first.
     while (count < max_guesses) // primary condition in the game?, 7 guesses allowed.
@@ -34,19 +34,17 @@ int main()
         scanf("%d", &player2_guess);
         printf("Player 2 has so far guessed:\n");
         // special characters = minus 1 count.
-        if (player2_guess < 1 || player2_guess > 1000)
+        if ()
         {
             count--;
-            printf("Player 2, you have %d guesses remaining. Enter your next guess:\n", count);
 
             printf("Player 2 has so far guessed:\n"); /* must include "_"
             e.g the word is "cat", player 2 guessed "a", the printf should print "_a_". */
         }
         // blank entry = minus 1 count.
-        else if (player2_guess < player1_guess)
+        else if ()
         {
             count--;
-            printf("Player 2, you have %d guesses remaining. Enter your next guess:\n", count);
 
             printf("Player 2 has so far guessed:\n");
             /* must include "_"
@@ -54,10 +52,9 @@ int main()
         }
         /* multiple letters e.g "aaa" will be given as "a", if a number with letters is given e.g "8a", this is will count as "8"
         and will be a incorrect guess. condition is first character of each guess will be the primary and only deciding factor. */
-        else if (player2_guess > player1_guess)
+        else if ()
         {
             count--;
-            printf("Player 2, you have %d guesses remaining. Enter your next guess:\n", count);
 
             printf("Player 2 has so far guessed:\n");
             /* must include "_"
