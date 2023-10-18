@@ -1,75 +1,78 @@
-/*
-LAB 3 ASSIGNMENT - GUESSWORD
-Student ID: 2300411
-Name: Augustine Chan Yi Ren
-*/
 #include <stdio.h>
-// define what macros are needed, keep it simple.
-#define max_guesses 7
-#define word_limit 7
+#include <stdbool.h>
+#include <ctype.h>
+#include <string.h>
 
-int main()
-{
-    int player1_guess;
-    int player2_guess;
+#define max_guesses 7
+#define letter_limit 7
+
+bool isValid(const char *word) {
+    for (int i = 0; i < strlen(word); ++i) {
+        if (!isalpha(word[i]) || strlen(word) > letter_limit) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    char player1_word[letter_limit + 1];
+    char player2_guess;
+    char player2_guesses[letter_limit];
+    int remaining_guesses = 7;
 
     printf("Player 1, enter a word of no more than 7 letters:\n");
-    do
-    {
-        scanf("%d", &player1_guess); // store input to player1_guess, must include '&'
+  
+    do {
+        fgets(player1_word, sizeof(player1_word), stdin);
+        player1_word[strcspn(player1_word, "\n")] = '\0';
 
-        if () // using || means AND for conditions.
-        {
+        if (!isValid(player1_word)) {
             printf("Sorry, the word must contain only English letters.\n");
-            printf("Player 1, enter a word of no more than 7 letters:\n");
-        }
-    } while ();
+        } continue;
 
-    int count = 0;              // set this to 0 first.
-    while (count < max_guesses) // primary condition in the game?, 7 guesses allowed.
-    {
-        // one letter per guess.
-        printf("Player 2, you have %d guesses remaining.\n", max_guesses - count);
-        printf("/n");
-        scanf("%d", &player2_guess);
-        printf("Player 2 has so far guessed:\n");
-        // special characters = minus 1 count.
-        if ()
-        {
-            count--;
+    } while (strlen(player1_word) == 0 || strlen(player1_word) > letter_limit);
 
-            printf("Player 2 has so far guessed:\n"); /* must include "_"
-            e.g the word is "cat", player 2 guessed "a", the printf should print "_a_". */
-        }
-        // blank entry = minus 1 count.
-        else if ()
-        {
-            count--;
+    for (int i = 0; i < strlen(player1_word); ++i) {
+        player1_word[i] = tolower(player1_word[i]);
+        player2_guesses[i] = '_';
+    }
+    player2_guesses[strlen(player1_word)] = '\0';
+  
+    printf("Player 2 has so far guessed: %s\n", player2_guesses);
 
-            printf("Player 2 has so far guessed:\n");
-            /* must include "_"
-            e.g the word is "cat", player 2 guessed "a", the printf should print "_a_". */
-        }
-        /* multiple letters e.g "aaa" will be given as "a", if a number with letters is given e.g "8a", this is will count as "8"
-        and will be a incorrect guess. condition is first character of each guess will be the primary and only deciding factor. */
-        else if ()
-        {
-            count--;
+    int count = 0;
+    while (count < max_guesses && remaining_guesses > 0) {
+        printf("Player 2, you have %d guesses remaining. Enter your next guess:\n", remaining_guesses);
+        scanf(" %c", &player2_guess);
+        getchar();
 
-            printf("Player 2 has so far guessed:\n");
-            /* must include "_"
-            e.g the word is "cat", player 2 guessed "a", the printf should print "_a_". */
+        if (!isalpha(player2_guess)) {
+            remaining_guesses--;
+            printf("Player 2 has so far guessed: %s\n", player2_guesses);
+            continue;
         }
-        else
-        {
+        player2_guess = tolower(player2_guess);
+        bool correct_guess = false;
+        for (int i = 0; i < strlen(player1_word); ++i) {
+            if (player1_word[i] == player2_guess) {
+                player2_guesses[i] = player2_guess;
+                correct_guess = true;
+            }
+        }
+
+        printf("Player 2 has so far guessed: %s\n", player2_guesses);
+
+        if (strcmp(player2_guesses, player1_word) == 0) {
             printf("Player 2 wins.\n");
-            break; // stop the loop
+            return 0;
         }
-        count++; // this will give a +1 count for every attempt , use max_guesses against this to get the remainder.
+        if (!correct_guess) {
+            remaining_guesses--;
+        } else {
+            count++;
+        }
     }
-    if (count == max_guesses)
-    {
-        printf("Player 1 wins.\n");
-    }
+    printf("Player 2 has failed to guess the word %s. Player 1 wins.\n", player1_word);
     return 0;
 }
