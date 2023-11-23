@@ -2,11 +2,6 @@
 
 This C program implements a simple guessing game where Player 1 enters a word and Player 2 tries to guess it within a limited number of attempts.
 
-### Files:
-
-- **main.c**: Contains the main code for the guessing game.
-- **Readme.md**: Readme file explaining the program.
-
 ### Program Overview:
 
 #### Structures:
@@ -31,12 +26,6 @@ This C program implements a simple guessing game where Player 1 enters a word an
   - Player 2 makes guesses until they either:
     - Correctly guess the word.
     - Reach the maximum number of incorrect guesses allowed.
-
-### Running the Program:
-
-1. Compile the program: `gcc guessword.c -o guessword`.
-2. Run the executable: `./guessword`.
-3. Follow the prompts to play the game.
 
 ### Notes:
 
